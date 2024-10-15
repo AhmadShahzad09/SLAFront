@@ -1,0 +1,92 @@
+.tree {
+  &__module {
+    .ods-module__body {
+      padding: 1rem 0.5rem;
+    }
+  }
+
+  &__container {
+    max-height: calc(100vh - 190px);
+    overflow: auto;
+
+    .ods-tree--highlight-current .ods-tree-node.is-current > .ods-tree-node__content {
+      font-weight: 500;
+    }
+  }
+
+  &__node {
+    &__content {
+      height: auto;
+      white-space: normal;
+    }
+
+    &--blocked {
+      background-color: $--color-neutral-3 !important;
+
+      &-user {
+        background-color: $--color-warning-light !important;
+      }
+    }
+
+    &--created {
+      color: $--color-success !important;
+    }
+
+    &--deleted {
+      color: $--color-danger !important;
+    }
+
+    &--modified {
+      color: $--color-primary !important;
+    }
+  }
+}
+
+.reconfig-modal-tree {
+  &__module {
+    border-radius: 0;
+
+    .tree__container {
+      max-height: calc(100vh - 315px);
+    }
+  }
+}
+
+.network-modal-tree {
+  &__module {
+    border-radius: 0;
+
+    .tree__container {
+      max-height: calc(100vh - 240px);
+    }
+  }
+}
+
+.history-tree {
+  .ods-tree-node__expand-icon.is-leaf {
+    width: 0 !important;
+  }
+}
+
+.area-definition--tree {
+  .tree__container {
+    max-height: calc(100vh - 219px);
+  }
+
+  &__selected {
+    max-height: calc(100vh - 256px);
+    overflow: auto;
+  }
+}
+
+.purchase--tree {
+  .tree__container {
+    min-height: 100%;
+    max-height: calc(100vh - 170px) !important;
+  }
+
+  &__selected {
+    height: calc(100vh - 207px);
+    overflow: auto;
+  }
+}

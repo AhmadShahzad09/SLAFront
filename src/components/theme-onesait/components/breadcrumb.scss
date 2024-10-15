@@ -1,0 +1,64 @@
+@import "../mixins/mixins";
+@import "../mixins/utils";
+@import "../common/var";
+
+@include b(breadcrumb) {
+  font-size: 16px;
+  margin: 24px 0;
+  @include utils-clearfix;
+
+  @include e(separator) {
+    margin: 0 9px;
+    font-weight: 200;
+    color: $--color-text-regular;
+    font-size: 16px;
+
+    &[class*=icon] {
+      margin: 0 6px;
+      font-weight: normal;
+    }
+  }
+
+  @include e(item) {
+    display: inline-block;
+
+    @media (max-width: $--bp-mobile-lg) {
+      max-width: 170px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      line-height: 18px;
+    }
+
+    @include e(inner) {
+      color: $--color-text-regular;
+
+      &.is-link, & a {
+        font-weight: 500;
+        text-decoration: none;
+        transition: $--color-transition-base;
+        color: $--color-text-primary;
+
+        &:hover {
+          color: $--color-primary;
+          cursor: pointer;
+        }
+      }
+    }
+
+    &:last-child {
+      .ods-breadcrumb__inner,
+      .ods-breadcrumb__inner a {
+        &, &:hover {
+          font-weight: normal;
+          color: $--color-text-regular;
+          cursor: text;
+        }
+      }
+
+      .ods-breadcrumb__separator {
+        display: none;
+      }
+    }
+  }
+}

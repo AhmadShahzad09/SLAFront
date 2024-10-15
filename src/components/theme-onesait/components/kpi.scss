@@ -1,0 +1,261 @@
+@charset "UTF-8";
+@import "../common/var";
+@import '../mixins/edb';
+
+.ods-kpi {
+	width: auto;
+	color: $color-darkGray-shape02;
+	text-align: left;
+	text-transform: uppercase;
+
+	&.center {
+		text-align: center;
+	}
+
+	// modify : red
+	&.ods-kpi--red {
+		.ods-kpi__number {
+			color: $color-red
+		}
+
+		.kpi-variations-arrow--up {
+			border-bottom-color: $color-red;
+		}
+
+		.kpi-variations-arrow--down {
+			border-top-color: $color-red;
+		}
+	}
+
+	// modify : green
+	&.ods-kpi--green {
+		.ods-kpi__number {
+			color: $color-green-shape03
+		}
+
+		.kpi-variations-arrow--up {
+			border-bottom-color: $color-green-shape03;
+		}
+
+		.kpi-variations-arrow--down {
+			border-top-color: $color-green-shape03;
+		}
+	}
+
+	.kpi_icon {
+		+ .ods-kpi__kpi-list__kpi-number {
+			margin-top: 6px;
+		}
+	}
+
+	.ods-kpi__number {
+		@extend %font-kpi-number;
+		.symbol {
+			@extend %font-kpi-decimals;
+			margin-left: 3px;
+		}
+
+		.smallNumber {
+			@extend %font-kpi-decimals;
+			margin-left: 3px;
+		}
+
+		.kpi_circle {
+			&.active {
+				@extend %flex;
+				box-sizing: border-box;
+				margin-bottom: 15px;
+				width: 90px;
+				height: 90px;
+				border-radius: 50%;
+			}
+
+			&.red {
+				border: 3px solid $color-red;
+				color: $color-red;
+			}
+
+			&.green {
+				border: 3px solid $color-green-shape03;
+				color: $color-green-shape03;
+			}
+
+			&.orange {
+				border: 3px solid $color-orange;
+				color: $color-orange;
+			}
+		}
+
+		+ .kpi_title {
+			margin-top: 3px;
+		}
+	}
+
+	.kpi_title, .kpi_resume, .number {
+		@extend %font-kpi-title;
+		max-width: 130px;
+
+		.notAvailable {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			align-content: center;
+			min-height: inherit;
+		}
+
+		&.capitalize {
+			text-transform: capitalize;
+		}
+
+		+ .kpi_percentage {
+			margin-top: 8px;
+		}
+
+		+ .kpi_arrow {
+			margin-top: 5px;
+		}
+	}
+
+	.kpi_resume {
+		margin-top: 8px;
+	}
+
+	.kpi_percentage {
+		@extend %font-kpi-percentage;
+		display: flex;
+
+		.triangle {
+			margin-right: 3px;
+		}
+
+		&.positive {
+			color: $color-green-shape03;
+
+			.icon {
+
+				path {
+					stroke: $color-green-shape03;
+					fill: $color-green-shape03;
+				}
+			}
+		}
+
+		&.negative {
+			color: $color-red;
+
+			.icon {
+				position: relative;
+				top: -1px;
+
+				path {
+					stroke: $color-red;
+					fill: $color-red;
+				}
+			}
+
+			.triangle {
+				transform: rotate(180deg);
+			}
+		}
+
+		.icon {
+			margin-right: 2px;
+		}
+
+		+ .kpi_arrow {
+			margin-top: 14px;
+		}
+	}
+
+	.kpi_arrow {
+		width: 20px;
+		height: 20px;
+
+		.icon {
+			path {
+				stroke: $--color-primary;
+
+				@include themify($themes) {
+					stroke: color('primary');
+				}
+			}
+
+			rect {
+				fill: $--color-primary;
+
+				@include themify($themes) {
+					fill: color('primary');
+				}
+			}
+		}
+	}
+
+	.ods-kpi__kpi-list__kpi-icons-row {
+		margin-top: 10px;
+		display: flex;
+
+		&__icon {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			path {
+				fill: $color-darkGray-shape04;
+			}
+
+			rect {
+				fill: $color-darkGray-shape04;
+			}
+			+ .ods-kpi__kpi-list__kpi-icons-row__icon {
+				margin-left: 18px;
+			}
+			.ods-kpi__kpi-list__kpi-icons-row__number {
+				@extend %font-kpi-number-icon;
+				color: $color-darkGray-shape04;
+				margin-top: 5px;
+			}
+		}
+	}
+
+	&--no-href {
+		cursor: default;
+		pointer-events: none;
+	}
+
+	// i: arrow
+	.kpi-variations-arrow{
+		// structure
+		display: inline-block;
+		width: 0;
+		height: 0;
+		margin-right: 8px;
+
+		// position
+		vertical-align: middle;
+
+		// font
+		font-size: 0;
+
+		// appearance
+		border: 0 solid transparent;
+	}
+
+	// case : up
+	.kpi-variations-arrow--up{
+		// appearance
+		border-right-width: 9px;
+		border-left-width: 9px;
+		border-bottom: 14px solid transparent;
+	}
+
+	// case : down
+	 .kpi-variations-arrow--down{
+		// appearance
+		border-left-width: 9px;
+		border-right-width: 9px;
+		border-top: 14px solid transparent;
+	}
+
+	&.router-link-exact-active {
+		cursor: default;
+	}
+}

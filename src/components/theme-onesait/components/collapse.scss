@@ -1,0 +1,57 @@
+@import "../mixins/mixins";
+@import "../common/var";
+@import "../mixins/edb";
+
+@include b(accordion) {
+  border: 1px solid #D1D9DE;
+  font-family: $--font-family;
+  background-color: $--color-white;
+}
+@include b(accordion-item) {
+  padding: 40px;
+  border-bottom: 1px solid #D1D9DE;
+  @include e(header) {
+    color: $--color-text-regular;
+    cursor: pointer;
+    font-size: $--accordion-header-size;
+    font-weight: 500;
+    transition: border-bottom-color .3s;
+    outline: none;
+    @include e(arrow) {
+      color: $--color-black;
+      margin-right: 8px;
+      transition: transform .3s;
+      float: right;
+      line-height: 1;
+      font-weight: 500;
+      font-size: 20px;
+      @include when(active) {
+        transform: rotate(180deg);
+      }
+    }
+    &.focusing:focus:not(:hover){
+      color: $--color-primary;
+    }
+    @include when(active) {
+      /*border-bottom-color: transparent;*/
+    }
+  }
+
+  @include e(wrap) {
+    will-change: height;
+    background-color: $--accordion-content-fill;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  @include e(content) {
+    padding-top: 24px;
+    font-size: $--accordion-content-size;
+    color: $--accordion-content-color;
+    line-height: 1.769230769230769;
+  }
+
+  &:last-child {
+    margin-bottom: -1px;
+  }
+}

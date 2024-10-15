@@ -1,0 +1,15 @@
+@import "../mixins/mixins";
+
+@include b(aside) {
+  overflow: auto;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  transition: width .3s;
+}
+
+@media only screen and (max-width: $--breakpoint-menu) {
+  @include b(aside) {
+    width: 0!important;
+    transition: width .7s;
+  }
+}

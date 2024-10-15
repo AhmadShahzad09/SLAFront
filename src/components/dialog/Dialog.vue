@@ -1,0 +1,248 @@
+<template>
+  <transition
+    :name="transitionName"
+    @after-enter="afterEnter"
+    @after-leave="afterLeave">
+    <div
+      data-name="OdsDialog"
+      class="ods-dialog__wrapper"
+      v-show="visible"
+      @click.self="handleWrapperClick">
+      <div
+        role="dialog"
+        aria-modal="true"
+        :aria-label="title || 'dialog'"
+        class="ods-dialog"
+        :class="[{ 'is-fullscreen': fullscreen, 'ods-dialog--center': center }, customClass]"
+        ref="dialog"
+        :style="style">
+        <div class="ods-dialog__icon" v-if="icon">
+          <template v-if="icon === 'success'">
+            <span v-html="successIcon"></span>
+          </template>
+          <template v-else-if="icon === 'error'">
+            <span v-html="errorIcon"></span>
+          </template>
+          <template v-else>
+            <ods-icon :name="icon" :size="iconSize" :style="{color: iconColor}"></ods-icon>
+          </template>
+        </div>
+        <div class="ods-dialog__header">
+          <slot name="title" v-if="secondTitle ===''">
+            <span class="ods-dialog__title">{{ title }}</span>
+          </slot>
+          <slot name="title" v-if="secondTitle !==''">
+            <span class="ods-dialog__title">{{ title }} - {{secondTitle}}</span>
+          </slot>
+          <button
+            type="button"
+            class="ods-dialog__headerbtn"
+            aria-label="Close"
+            v-if="showClose"
+            @click="handleClose">
+            <i class="ods-dialog__close ods-icon ods-icon-close"></i>
+          </button>
+        </div>
+        <div class="ods-dialog__body" v-if="rendered"><slot></slot></div>
+        <div class="ods-dialog__footer" v-if="$slots.footer">
+          <slot name="footer"></slot>
+        </div>
+      </div>
+    </div>
+  </transition>
+</template>
+
+<script>
+import Popup from '@/addons/utils/popup'
+import Migrating from '@/addons/mixins/migrating'
+import emitter from '@/addons/mixins/emitter'
+import cssVars from '@/components/theme-onesait/common/var.scss'
+import icons from './icons'
+
+export default {
+  name: 'OdsDialog',
+  version: '2.0.0',
+  category: 'other',
+  lastDate: '13/04/2020',
+  syncStatus: 'aligned-extended',
+
+  mixins: [Popup, emitter, Migrating],
+
+  props: {
+    title: {
+      type: String,
+      default: ''
+    },
+
+    secondTitle: {
+      type: String,
+      default: ''
+    },
+
+    modal: {
+      type: Boolean,
+      default: true
+    },
+
+    modalAppendToBody: {
+      type: Boolean,
+      default: true
+    },
+
+    appendToBody: {
+      type: Boolean,
+      default: false
+    },
+
+    lockScroll: {
+      type: Boolean,
+      default: true
+    },
+
+    closeOnClickModal: {
+      type: Boolean,
+      default: true
+    },
+
+    closeOnPressEscape: {
+      type: Boolean,
+      default: true
+    },
+
+    showClose: {
+      type: Boolean,
+      default: true
+    },
+
+    width: String,
+
+    fullscreen: Boolean,
+
+    customClass: {
+      type: String,
+      default: ''
+    },
+
+    top: {
+      type: String,
+      default: '0'
+    },
+    beforeClose: Function,
+    center: {
+      type: Boolean,
+      default: false
+    },
+    icon: {
+      type: String,
+      default: ''
+    },
+    iconSize: {
+      type: String,
+      default: '46'
+    },
+    iconColor: {
+      type: String,
+      default: cssVars.primaryColor
+    },
+    transitionName: {
+      type: String,
+      default: 'dialog-fade'
+    }
+  },
+
+  data () {
+    return {
+      closed: false,
+      errorIcon: icons.error,
+      successIcon: icons.success
+    }
+  },
+
+  watch: {
+    visible (val) {
+      if (val) {
+        this.closed = false
+        this.$emit('open')
+        this.$el.addEventListener('scroll', this.updatePopper)
+        this.$nextTick(() => {
+          this.$refs.dialog.scrollTop = 0
+        })
+        if (this.appendToBody) {
+          document.body.appendChild(this.$el)
+        }
+      } else {
+        this.$el.removeEventListener('scroll', this.updatePopper)
+        if (!this.closed) this.$emit('close')
+      }
+    }
+  },
+
+  computed: {
+    style () {
+      let style = {}
+      if (!this.fullscreen) {
+        style.marginTop = this.top
+        if (this.width) {
+          style.width = this.width
+        }
+      }
+      return style
+    }
+  },
+
+  methods: {
+    getMigratingConfig () {
+      return {
+        props: {
+          'size': 'size is removed.'
+        }
+      }
+    },
+    handleWrapperClick () {
+      if (!this.closeOnClickModal) return
+      this.handleClose()
+    },
+    handleClose () {
+      if (typeof this.beforeClose === 'function') {
+        this.beforeClose(this.hide)
+      } else {
+        this.hide()
+      }
+    },
+    hide (cancel) {
+      if (cancel !== false) {
+        this.$emit('update:visible', false)
+        this.$emit('close')
+        this.closed = true
+      }
+    },
+    updatePopper () {
+      this.broadcast('OdsSelectDropdown', 'updatePopper')
+      this.broadcast('OdsDropdownMenu', 'updatePopper')
+    },
+    afterEnter () {
+      this.$emit('opened')
+    },
+    afterLeave () {
+      this.$emit('closed')
+    }
+  },
+
+  mounted () {
+    if (this.visible) {
+      this.rendered = true
+      this.open()
+      if (this.appendToBody) {
+        document.body.appendChild(this.$el)
+      }
+    }
+  },
+
+  destroyed () {
+    // if appendToBody is true, remove DOM node after destroy
+    if (this.appendToBody && this.$el && this.$el.parentNode) {
+      this.$el.parentNode.removeChild(this.$el)
+    }
+  }
+}
+</script>

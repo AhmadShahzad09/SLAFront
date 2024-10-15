@@ -1,0 +1,57 @@
+@import "../common/var";
+@font-face {
+  font-family: 'smiley';
+  src: url('#{$--font-path}/smiley/smiley.woff') format('woff2'),
+       url('#{$--font-path}/smiley/smiley.woff') format('woff'),
+       url('#{$--font-path}/smiley/smiley.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'fontello';
+    src: url('../font/fontello.svg?69766054#fontello') format('svg');
+  }
+}
+*/
+ 
+[class^="icon-smile"]:before, [class*=" icon-smile"]:before {
+  font-family: "smiley";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  font-size: 22px;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  text-align: center;
+  /* opacity: .8; */
+ 
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+ 
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+ 
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+ 
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+ 
+  /* Font smoothing. That was taken from TWBS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+ 
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+ 
+.icon-smile-smile:before { content: '\f118'; }
+.icon-smile-frown:before { content: '\f119'; }
+.icon-smile-meh:before { content: '\f11a'; }

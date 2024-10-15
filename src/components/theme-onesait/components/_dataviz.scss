@@ -1,0 +1,63 @@
+/**
+* Estilos compartidos por las gráficas
+*/
+
+.ods-dataviz {
+  &__header {
+    display: flex;
+    align-items: center;
+  }
+
+  &__title {
+    padding: 12px 0 18px 0;
+    font-size: 17px;
+    flex: 1;
+  }
+
+  &__toolbox {
+    margin-left: auto;
+    padding-left: 18px;
+  }
+
+  &__tooltip {
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+
+    /**
+    * Standar tooltip
+    */
+
+    &__item {
+      padding: 4px 8px;
+      border-left: 3px solid;
+      display: flex;
+
+      &:not(:last-child) {
+        border-bottom: 1px solid #e6e8e9;
+      }
+    }
+
+    &__value {
+      padding-left: 16px;
+      margin-left: auto;
+    }
+
+    /**
+    * Axis tooltip
+    */
+
+    &__list {
+      padding: 8px;
+
+      &__title {
+        padding-bottom: 8px;
+        margin-bottom: 8px;
+        border-bottom: 1px dotted #ccc;
+        display: flex;
+      }
+
+      &__item {
+        font-size: 13px;
+      }
+    }
+  }
+}

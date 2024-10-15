@@ -1,0 +1,75 @@
+{
+  "calculationMethod": {
+    "langs": {
+      "es": "Métodos de cálculo",
+      "en": "Calculation methods"
+    },
+    "icon": "terminal",
+    "to": "/calculationMethods"
+  },
+  "dataEntry": {
+    "langs": {
+      "es": "Entrada de datos",
+      "en": "Data entry"
+    },
+    "icon": "file_add",
+    "to": "/dataEntry"
+  },
+  "dataExtraction": {
+    "langs": {
+      "es": "Extracción de datos",
+      "en": "Data extraction"
+    },
+    "icon": "folder_rest",
+    "to": "/dataExtraction"
+  },
+  "monitoringHistoryExecution": {
+    "langs": {
+      "es": "Seguimiento de ejecuciones",
+      "en": "Monitoring execution"
+    },
+    "icon": "scan",
+    "to": "/monitoringExecution"
+  },
+  "calculationResult": {
+    "langs": {
+      "es": "Resultado de los cálculos",
+      "en": "Calculation results"
+    },
+    "icon": "reception",
+    "children": {
+      "daily": {
+        "langs": {
+          "es": "Diario",
+          "en": "Daily"
+        },
+        "icon": "calendar-schedule",
+        "to": "/dailyCalculation"
+      },
+      "monthly": {
+        "langs": {
+          "es": "Mensual",
+          "en": "Monthly"
+        },
+        "icon": "calendar-change",
+        "to": "/monthlyCalculation"
+      }
+    }
+  },
+  "reports": {
+    "langs": {
+      "es": "Reportes",
+      "en": "Reports"
+    },
+    "icon": "iniciatives",
+    "to": "/reports"
+  },
+  "user": {
+    "langs": {
+      "es": "Gestionar usuarios",
+      "en": "Users management"
+    },
+    "icon": "admin",
+    "to": "/users"
+  }
+}

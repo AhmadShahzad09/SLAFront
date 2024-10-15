@@ -1,0 +1,178 @@
+def img
+
+/* START PIPELINE */
+
+pipeline {
+
+  /* AGENT */
+
+  agent {
+    kubernetes {
+      defaultContainer 'jnlp'
+      yamlFile 'podTemplate.yaml'
+    }
+  }
+
+  /* POST */
+
+  post {
+    always {
+      logstashSend failBuild: false, maxLines: 10000
+    }
+    failure {
+      updateGitlabCommitStatus name: 'build', state: 'failed'
+    }
+    success {
+      updateGitlabCommitStatus name: 'build', state: 'success'
+    }
+  }
+
+  /* OPTIONS */
+
+  options {
+    timestamps()
+    gitLabConnection('GitLab')
+  }
+
+  /* STAGES */
+
+  stages {
+
+    /* Initialize */
+
+    stage('initialize') {
+      steps {
+        container('node') {
+          sh 'npm ci'
+          // sh 'npm audit --registry=https://registry.npmjs.org --audit-level=(low|moderate|high|critical)'
+        }
+      }
+    }
+
+    /* Verify */
+
+    stage('verify') {
+      when { environment name: 'gitlabActionType', value: 'MERGE' }
+      stages {
+        // stage('code-review') {
+        //   parallel {
+        //     stage('lint') {
+        //       steps {
+        //         container('node') {
+        //           sh "npm run lint"
+        //         }
+        //       }
+        //     }
+        //     stage('test') {
+        //       steps {
+        //         container('node') {
+        //           sh "npm run test:unit"
+        //         }
+        //       }
+        //     }
+        //   }
+        // }
+        stage('dependency-check') {
+          steps {
+            dependencyCheck odcInstallation: 'DependencyCheck', additionalArguments: '-f ALL -s . -o .'
+            dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+          }
+        }
+        stage('analyze') {
+          steps {
+            withSonarQubeEnv('jenkinssonar-sonarqube') {
+              container('node') {
+                sh 'npm install -g sonarqube-scanner'
+                sh 'sonar-scanner -Dsonar.projectKey=onesait-ux-ds -Dsonar.projectName="Onesait UX :: DS" -Dsonar.javascript.lcov.reportPaths=./test/unit/coverage/lcov.info -Dsonar.eslint.reportPaths=./test/unit/coverage/eslint.info -Dsonar.dependencyCheck.jsonReportPath=./dependency-check-report.json -Dsonar.dependencyCheck.htmlReportPath=./dependency-check-report.html'
+              }
+            }
+          }
+        }
+        stage('quality') {
+          steps {
+            timeout(time: 1, unit: 'HOURS') {
+              waitForQualityGate abortPipeline: true
+            }
+          }
+        }
+      }
+    }
+
+    /* Deliver */
+
+    stage('deliver') {
+      // when { not { environment name: 'gitlabActionType', value: 'MERGE' } }
+      when { environment name: 'gitlabBranch', value: 'master' }
+      stages {
+        stage('build') {
+          steps {
+            container('node') {
+              script{
+                sh "npm run build"
+              }
+            }
+          }
+        }
+        stage('deliver-artifact') {
+          steps {
+            container('node') {
+              script {
+                def packageJson = readJSON file: 'package.json'
+
+                sh 'mkdir npm'
+                sh 'cp -rf ./npm_package.json ./npm/package.json'
+                sh 'cp -rf ./README.md ./npm/README.md'
+                sh 'cp -rf ./lib/ ./npm/lib/'
+                sh 'cp -rf ./icon.json ./npm/lib/'
+                sh 'mkdir -p npm/packages/theme-onesait/src'
+                sh 'cp -rf ./src/components/theme-onesait/* ./npm/packages/theme-onesait/src'
+                sh 'rm -rf ./npm/packages/theme-onesait/src/ThemeOnesait.vue'
+
+                if ( packageJson.version.contains('beta') ) {
+                  sh 'npm publish npm --tag beta'
+                }
+
+                else {
+                  sh 'npm publish npm'
+                }
+              }
+            }
+          }
+        }
+        // stage('build-image') {
+        //   steps {
+        //     container('docker') {
+        //       script {
+        //         def packageJson = readJSON file: 'package.json'
+        //         img = docker.build("onesait-ux/ods:${packageJson.version}", "-f ./Dockerfile .")
+        //       }
+        //     }
+        //   }
+        // }
+        // stage('deliver-image') {
+        //   steps {
+        //     container('docker') {
+        //       script {
+        //         docker.withRegistry('https://solucionesregistry.azurecr.io', 'registry-onesait') {
+        //           img.push()
+
+        //           switch ("${gitlabBranch}") {
+        //             case "develop":
+        //               img.push("dev")
+        //               break
+        //             case "release":
+        //               img.push("beta")
+        //               break
+        //             case "master":
+        //               img.push("latest")
+        //               break
+        //           }
+        //         }
+        //       }
+        //     }
+        //   }
+        // }
+      }
+    }
+  }
+}

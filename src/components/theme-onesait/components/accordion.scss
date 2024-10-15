@@ -1,0 +1,67 @@
+@import "../mixins/mixins";
+@import "../common/var";
+@import "../mixins/edb";
+
+@include b(accordion) {
+  //border: 1px solid #D1D9DE;
+  font-family: $--font-family;
+  background-color: $--accordion-background;
+}
+@include b(accordion-item) {
+  padding: $--accordion-content-padding;
+  border-bottom: 1px solid #D1D9DE;
+  @include e(header) {
+    display: flex;
+    align-items: center;
+
+    color: $--color-text-regular;
+    cursor: pointer;
+    font-size: $--accordion-header-size;
+    font-weight: 500;
+    transition: border-bottom-color .3s;
+    outline: none;
+    font-size: 14px;
+    line-height: 24px;
+
+    @include e(title) {
+      flex: 1
+    }
+    
+    @include e(arrow) {
+      color: $--color-black;
+      margin-left: auto;
+      transition: transform .3s;
+      line-height: 1;
+      font-weight: 500;
+      font-size: 20px;
+
+      @include when(active) {
+        transform: rotate(180deg);
+      }
+    }
+    &.focusing:focus:not(:hover){
+      color: $--color-primary;
+    }
+    @include when(active) {
+      /*border-bottom-color: transparent;*/
+    }
+  }
+
+  @include e(wrap) {
+    will-change: height;
+    background-color: $--accordion-content-fill;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  @include e(content) {
+    padding-top: 16px;
+    font-size: $--accordion-content-size;
+    color: $--accordion-content-color;
+    line-height: 1.769230769230769;
+  }
+
+  &:last-child {
+    margin-bottom: -1px;
+  }
+}

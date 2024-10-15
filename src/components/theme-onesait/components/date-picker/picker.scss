@@ -1,0 +1,202 @@
+@import "../../mixins/mixins";
+@import "../../common/var";
+@import "../../common/transition";
+
+@include b(date-editor) {
+  position: relative;
+  display: inline-block;
+  text-align: left;
+  &.ods-input,
+  &.ods-input__inner {
+    width: 220px;
+  }
+
+  &.ods-input--has-label {
+    .ods-input__prefix {
+      height: auto;
+      top: auto;
+      bottom: 0;
+    }
+  }
+
+  @include m((daterange, timerange)) {
+    &.ods-input,
+    &.ods-input__inner {
+      width: auto;
+    }
+
+    > .ods-input__inner {
+      width: 87px;
+    }
+  }
+
+  @include m(datetimerange) {
+    &.ods-input,
+    &.ods-input__inner {
+      width: auto;
+    }
+
+    > .ods-input__inner {
+      width: 87px;
+    }
+  }
+
+  @include m(dates) {
+    .ods-input__inner {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  .ods-icon-circle-close, .ods-icon-delete {
+    cursor: pointer;
+  }
+
+  .ods-range__icon {
+    font-size: 14px;
+    margin-left: -5px;
+    color: $--color-text-placeholder;
+    float: left;
+    line-height: 32px;
+  }
+
+  .ods-range-input {
+    appearance: none;
+    border: none;
+    outline: none;
+    display: inline-block;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 86px;
+    text-align: center;
+    font-size: $--font-size-base;
+    color: $--color-text-regular;
+
+    &::placeholder {
+      color: $--color-text-placeholder;
+    }
+  }
+
+  .ods-range-separator {
+    font-weight: 500;
+    padding: 0 16px;
+    color: $--color-neutral-1;
+    font-size: 9px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+  }
+
+  .ods-range__close-icon {
+    font-size: 14px;
+    color: $--color-text-placeholder;
+    width: 25px;
+    display: inline-block;
+    float: right;
+    line-height: 32px;
+  }
+}
+
+@include b(range-editor) {
+  &.ods-input__inner {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+  }
+
+  .ods-range-input {
+    line-height: 1;
+  }
+
+  @include when(active) {
+    border-color: $--color-primary;
+
+    &:hover {
+      border-color: $--color-primary;
+    }
+  }
+
+  @include m(medium) {
+    &.ods-input__inner {
+      height: $--input-medium-height;
+    }
+
+    .ods-range-separator {
+      line-height: 28px;
+      font-size: $--input-medium-font-size;
+    }
+
+    .ods-range-input {
+      font-size: $--input-medium-font-size;
+    }
+
+    .ods-range__icon,
+    .ods-range__close-icon {
+      line-height: 28px;
+    }
+  }
+
+  @include m(small) {
+    &.ods-input__inner {
+      height: $--input-small-height;
+    }
+
+    .ods-range-separator {
+      line-height: 24px;
+      font-size: $--input-small-font-size;
+    }
+
+    .ods-range-input {
+      font-size: $--input-small-font-size;
+    }
+
+    .ods-range__icon,
+    .ods-range__close-icon {
+      line-height: 24px;
+    }
+  }
+
+  @include m(mini) {
+    &.ods-input__inner {
+      height: $--input-mini-height;
+    }
+
+    .ods-range-separator {
+      line-height: 20px;
+      font-size: $--input-mini-font-size;
+    }
+
+    .ods-range-input {
+      font-size: $--input-mini-font-size;
+    }
+
+    .ods-range__icon,
+    .ods-range__close-icon {
+      line-height: 20px;
+    }
+  }
+
+  @include when(disabled) {
+    background-color: $--input-disabled-fill;
+    border-color: $--input-disabled-border;
+    color: $--input-disabled-color;
+    cursor: not-allowed;
+
+    &:hover, &:focus {
+      border-color: $--input-disabled-border;
+    }
+
+    input {
+      background-color: $--input-disabled-fill;
+      color: $--input-disabled-color;
+      cursor: not-allowed;
+      &::placeholder {
+        color: $--input-disabled-placeholder-color;
+      }
+    }
+
+    .ods-range-separator {
+      color: $--input-disabled-color;
+    }
+  }
+}

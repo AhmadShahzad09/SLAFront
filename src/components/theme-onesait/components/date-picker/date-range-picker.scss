@@ -1,0 +1,142 @@
+@import "../../common/var";
+
+@include b(date-range-picker) {
+  width: 646px;
+
+  &.has-sidebar {
+    width: 756px;
+  }
+
+  @include m(only-one-calendar) {
+    width: 323px;
+    .ods-picker-panel__body.ods-picker-panel__body {
+      min-width: inherit;
+    }
+    &.has-sidebar {
+      width: 433px;
+    }
+    .ods-date-range-picker__time-header {
+      /* display: none; */
+    }
+
+    .ods-date-range-picker__content {
+      width: 100%;
+    }
+  }
+
+  table {
+    table-layout: fixed;
+    width: 100%;
+  }
+
+  .ods-picker-panel__body {
+    min-width: 513px;
+  }
+
+  .ods-picker-panel__content {
+    margin: 0;
+  }
+
+  @include e(header) {
+    display: flex;
+    margin: 8px 12px 0;
+    justify-content: space-between;
+    [class*=chevron-left] {
+      float: left;
+    }
+
+    [class*=chevron-right] {
+      float: right;
+    }
+
+    div {
+      font-size: 16px;
+      font-weight: 500;
+    }
+  }
+
+  @include e(content) {
+    float: left;
+    width: 50%;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 16px;
+
+    @include when(left) {
+      &:only-child{
+        border-right: 0;
+        width: 100%;
+      }
+      border-right: 1px solid $--datepicker-inner-border-color;
+
+      .ods-date-range-picker__header {
+
+        div {
+          font-family: $--font-family;
+        }
+      }
+    }
+
+    @include when(right) {
+      .ods-date-range-picker__header {
+
+        div {
+          /* margin-left: 50px;
+          margin-right: 50px; */
+          font-family: $--font-family;
+        }
+      }
+    }
+  }
+
+  @include e(editors-wrap) {
+    box-sizing: border-box;
+    display: table-cell;
+
+    & .ods-input {
+      width: auto;
+    }
+
+    @include when(right) {
+      text-align: right;
+    }
+  }
+
+  @include e(time-header) {
+    position: relative;
+    border-bottom: 1px solid $--datepicker-inner-border-color;
+    font-size: 12px;
+    padding: 8px 5px 5px 5px;
+    display: table;
+    width: 100%;
+    box-sizing: border-box;
+    //display: none;
+
+    > .ods-icon-chevron-right {
+      font-size: 20px;
+      vertical-align: middle;
+      display: table-cell;
+      color: $--datepicker-icon-color;
+    }
+  }
+
+  @include m(with-header) {
+    @include e(time-header) {
+      display: table;
+    }
+  }
+
+  @include e(time-picker-wrap) {
+    position: relative;
+    display: table-cell;
+    padding: 0 5px;
+
+    .ods-picker-panel {
+      position: absolute;
+      top: 13px;
+      right: 0;
+      z-index: 1;
+      background: $--color-white;
+    }
+  }
+}

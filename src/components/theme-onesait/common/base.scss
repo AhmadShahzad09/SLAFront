@@ -1,0 +1,144 @@
+@import "./transition.scss";
+@import "../components/icon.scss";
+
+@font-face {
+    font-family: "soho";
+
+    src: url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-Light.eot");
+    src: url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-Light.eot?#iefix") format("embedded-opentype"),
+        url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-Light.woff2") format("woff2"),
+        url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-Light.woff") format("woff"),
+        url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-Light.ttf") format("truetype");
+
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "soho";
+    src: url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-Regular.eot");
+    src: url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-Regular.eot?#iefix") format("embedded-opentype"),
+        url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-Regular.woff2") format("woff2"),
+        url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-Regular.woff") format("woff"),
+        url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-Regular.ttf") format("truetype");
+
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "soho";
+    src: url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-Italic.eot");
+    src: url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-Italic.eot?#iefix") format("embedded-opentype"),
+        url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-Italic.woff2") format("woff2"),
+        url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-Italic.woff") format("woff"),
+        url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-Italic.ttf") format("truetype");
+
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "soho";
+    src: url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-Medium.eot");
+    src: url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-Medium.eot?#iefix") format("embedded-opentype"),
+        url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-Medium.woff2") format("woff2"),
+        url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-Medium.woff") format("woff"),
+        url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-Medium.ttf") format("truetype");
+
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "soho";
+    src: url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-MediumItalic.eot");
+    src: url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-MediumItalic.eot?#iefix") format("embedded-opentype"),
+        url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-MediumItalic.woff2") format("woff2"),
+        url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-MediumItalic.woff") format("woff"),
+        url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-MediumItalic.ttf") format("truetype");
+
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "soho";
+    src: url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-Bold.eot");
+    src: url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-Bold.eot?#iefix") format("embedded-opentype"),
+        url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-Bold.woff2") format("woff2"),
+        url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-Bold.woff") format("woff"),
+        url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-Bold.ttf") format("truetype");
+
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/*/
+ *  soho-light for old projects support
+ */
+
+@font-face {
+    font-family: "soho-light";
+
+    src: url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-Light.eot");
+    src: url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-Light.eot?#iefix") format("embedded-opentype"),
+        url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-Light.woff2") format("woff2"),
+        url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-Light.woff") format("woff"),
+        url("#{$--font-path}/soho-gothic-pro/SohoGothicPro-Light.ttf") format("truetype");
+
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+/*/ Jetbrains */
+
+@font-face {
+    font-family: "JetBrains Mono";
+
+    src: url("#{$--font-path}/jetbrains-mono/JetBrainsMono-Regular.eot");
+    src: url("#{$--font-path}/jetbrains-mono/JetBrainsMono-Regular.eot?#iefix") format("embedded-opentype"),
+        url("#{$--font-path}/jetbrains-mono/JetBrainsMono-Regular.woff2") format("woff2"),
+        url("#{$--font-path}/jetbrains-mono/JetBrainsMono-Regular.woff") format("woff");
+
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+/*/ noto-kufi-arabic */
+
+@font-face {
+    font-family: "Noto Kufi Arabic";
+
+    src: url("#{$--font-path}/noto-kufi-arabic/NotoKufiArabic-Regular.eot");
+    src: url("#{$--font-path}/noto-kufi-arabic/NotoKufiArabic-Regular.eot?#iefix") format("embedded-opentype"),
+        url("#{$--font-path}/noto-kufi-arabic/NotoKufiArabic-Regular.woff2") format("woff2"),
+        url("#{$--font-path}/noto-kufi-arabic/NotoKufiArabic-Regular.woff") format("woff"),
+        url("#{$--font-path}/noto-kufi-arabic/NotoKufiArabic-Regular.ttf") format("truetype");
+
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Noto Kufi Arabic";
+
+    src: url("#{$--font-path}/noto-kufi-arabic/NotoKufiArabic-Bold.eot");
+    src: url("#{$--font-path}/noto-kufi-arabic/NotoKufiArabic-Bold.eot?#iefix") format("embedded-opentype"),
+        url("#{$--font-path}/noto-kufi-arabic/NotoKufiArabic-Bold.woff2") format("woff2"),
+        url("#{$--font-path}/noto-kufi-arabic/NotoKufiArabic-Bold.woff") format("woff"),
+        url("#{$--font-path}/noto-kufi-arabic/NotoKufiArabic-Bold.ttf") format("truetype");
+
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}

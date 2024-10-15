@@ -1,0 +1,383 @@
+@import "../mixins/mixins";
+@import "../common/var";
+@import "../mixins/edb";
+@import "./input-recycle";
+
+@mixin button-sizes {
+  &.ods-input {
+    &--micro {
+      width: $--input-size-micro;
+    }
+
+    &--deci {
+      width: $--input-size-deci;
+    }
+
+    &--hecto {
+      width: $--input-size-hecto;
+    }
+
+    &--mega {
+      width: $--input-size-mega;
+    }
+
+    &--exa {
+      width: $--input-size-exa;
+    }
+
+    &--white {
+      @include e(inner) {
+        background: $--color-white;
+      }
+    }
+  }
+}
+
+@include b(textarea) {
+  display: inline-block;
+  vertical-align: bottom;
+  width: 100%;
+  max-width: 100%;
+  font-family: $--font-family;
+  font-size: $--font-size-base;
+  @include button-sizes;
+
+  @include e(inner) {
+    display: block;
+    resize: vertical;
+    padding: 11px 16px;
+    line-height: 1.5;
+    box-sizing: border-box;
+    width: 100%;
+    font-family: $--font-family;
+    font-size: inherit;
+    color: $--input-color;
+    background-color: $--color-primary-light-9;
+    background-image: none;
+    border: 1px solid transparent;
+    border-bottom-color: $--color-neutral-2;
+    border-radius: $--input-border-radius;
+    transition: $--border-transition-base;
+
+    &::placeholder {
+      color: $--input-placeholder-color;
+    }
+
+    &:-moz-read-only {
+      @include input-read-only;
+    }
+
+    &:read-only {
+      @include input-read-only;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $--input-focus-border;
+    }
+  }
+
+  @include when(disabled) {
+    .ods-textarea__inner {
+      background-color: $--input-disabled-fill;
+      border-color: $--input-disabled-border;
+      color: $--input-disabled-color;
+      cursor: not-allowed;
+
+      &::placeholder {
+        color: $--input-disabled-placeholder-color;
+      }
+    }
+  }
+}
+
+
+@include b(input) {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-width: 100%;
+  font-size: $--font-size-base;
+
+  @include scroll-bar;
+
+  @include button-sizes;
+
+  & .ods-input__clear {
+    color: $--input-icon-color;
+    font-size: $--input-font-size;
+    line-height: 16px;
+    cursor: pointer;
+    transition: $--color-transition-base;
+
+    &:hover {
+      color: $--input-clear-hover-color;
+    }
+  }
+
+
+
+  @include e(inner) {
+    @include input-inner;
+    &:-moz-read-only {
+      @include input-read-only;
+    }
+
+    &:read-only {
+      @include input-read-only;
+    }
+
+    &::placeholder {
+      color: $--input-placeholder-color;
+      font-weight:100;
+      letter-spacing: 0.1px;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $--input-focus-border;
+    }
+  }
+
+  @include e(suffix) {
+    position: absolute;
+    height: $--input-height;
+    right: 8px;
+    top: auto;
+    text-align: center;
+    color: $--input-icon-color;
+    transition: all .3s;
+    pointer-events: none;
+    padding-right: 0;
+    display: inline-flex;
+    align-items: center;
+    width: auto;
+  }
+
+  @include e(suffix-inner) {
+    pointer-events: all;
+    display: flex;
+    align-items: center;
+    
+    @include e(icon) {
+      &.ods-icon-circle-close {
+        &:before {
+          content: '\221E'
+        }
+      }
+      &.ods-icon-eye.ods-input__clear {
+        font-size: 14px;
+      }
+    }
+  }
+
+  @include e(prefix) {
+    position: absolute;
+    height: 32px;
+    left: 8px;
+    top: 0;
+    text-align: center;
+    color: $--input-icon-color;
+    transition: all .3s;
+    display: flex;
+    align-items: center;
+  }
+
+  @include e(icon) {
+    height: 100%;
+    text-align: center;
+    transition: all .3s;
+    line-height: $--input-height;
+    font-size:16px;
+
+    &:after {
+      content: '';
+      height: 100%;
+      width: 0;
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+
+  @include e(validateIcon) {
+    pointer-events: none;
+  }
+
+  @include when(active) {
+    .ods-input__inner {
+      outline: none;
+      border-color: $--input-focus-border;
+    }
+  }
+
+  @include when(disabled) {
+    .ods-input__inner {
+      background-color: $--input-disabled-fill;
+      border-color: transparent;
+      color: $--color-text-placeholder;
+      cursor: not-allowed;
+
+      &::placeholder {
+        color: $--input-disabled-placeholder-color;
+      }
+    }
+
+    .ods-input__icon {
+      opacity: .4;
+      cursor: not-allowed;
+    }
+  }
+
+  @include m(suffix) {
+    .ods-input__icon {
+      font-size: 16px;
+    }
+
+    .ods-input__inner {
+      padding-right: 20px;
+    }
+  }
+
+  @include m(prefix) {
+    .ods-input__icon {
+      font-size: 16px;
+    }
+
+    .ods-input__inner {
+      padding-left: 30px;
+    }
+  }
+
+  @include m(medium) {
+    font-size: $--input-medium-font-size;
+
+    @include e(inner) {
+      height: $--input-medium-height;
+      line-height: $--input-medium-height;
+    }
+
+    .ods-input__icon {
+      line-height: $--input-medium-height;
+    }
+  }
+  @include m(small) {
+    font-size: $--input-small-font-size;
+
+    @include e(inner) {
+      height: $--input-small-height;
+      line-height: $--input-small-height;
+    }
+
+    .ods-input__icon {
+      line-height: $--input-small-height;
+    }
+  }
+  @include m(mini) {
+    font-size: $--input-mini-font-size;
+
+    @include e(inner) {
+      height: $--input-mini-height;
+      line-height: $--input-mini-height;
+    }
+
+    .ods-input__icon {
+      line-height: $--input-mini-height;
+    }
+  }
+}
+
+@include b(input-group) {
+  line-height: normal;
+  display: inline-table;
+  width: 100%;
+  border-collapse: separate;
+
+  > .ods-input__inner {
+    vertical-align: middle;
+    display: table-cell;
+  }
+
+  @include e((append, prepend)) {
+    background-color: $--background-color-base;
+    color: $--color-info;
+    vertical-align: middle;
+    display: table-cell;
+    position: relative;
+    border: $--border-base;
+    border-radius: $--input-border-radius;
+    padding: 0 8px;
+    width: 1px;
+    white-space: nowrap;
+    border: 1px solid $--color-neutral-3;
+    background: $--color-neutral-5;
+    color: $--color-neutral-1;
+
+    &:focus {
+      outline: none;
+    }
+
+    .ods-select,
+    .ods-button {
+      display: inline-block;
+      margin: -10px -20px;
+    }
+
+    .ods-select {
+      margin: -10px 0;
+      min-width: 100px;
+    }
+
+    button.ods-button,
+    div.ods-select .ods-input__inner,
+    div.ods-select:hover .ods-input__inner {
+      border-color: transparent;
+      background-color: transparent;
+      color: inherit;
+      border-top: 0;
+      border-bottom: 0;
+    }
+
+    .ods-button,
+    .ods-input {
+      font-size: inherit;
+    }
+  }
+
+  @include e(prepend) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+
+  }
+
+  @include e(append) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  @include m(prepend) {
+    .ods-input__inner {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    .ods-select .ods-input.is-focus .ods-input__inner {
+      border-color: transparent;
+    }
+  }
+
+  @include m(append) {
+    .ods-input__inner {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    .ods-select .ods-input.is-focus .ods-input__inner {
+      border-color: transparent;
+    }
+  }
+}
+
+/** disalbe default clear on IE */
+.ods-input__inner::-ms-clear {
+  display: none;
+  width: 0;
+  height: 0;
+}

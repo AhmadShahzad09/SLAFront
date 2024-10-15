@@ -1,0 +1,113 @@
+@import "../mixins/mixins";
+@import "../common/var";
+
+@include b(notification) {
+  display: flex;
+  width: $--notification-width;
+  padding: $--notification-padding;
+  border-radius: $--notification-radius;
+  box-sizing: border-box;
+  border: 1px solid $--notification-border-color;
+  position: fixed;
+  background-color: $--color-white;
+  box-shadow: $--notification-shadow;
+  transition: opacity .3s, transform .3s, left .3s, right .3s, top 0.4s, bottom .3s;
+  overflow: hidden;
+
+  &.right {
+    right: 16px;
+  }
+
+  &.left {
+    left: 16px;
+  }
+
+  @include e(group) {
+    margin-left: $--notification-group-margin;
+    padding-right: $--notification-group-margin;
+  }
+
+  @include e(title) {
+    font-weight: 500;
+    font-size: $--notification-title-font-size;
+    color: $--notification-title-color;
+    margin: 0;
+    line-height: 24px;
+
+    display: flex;
+    align-items: center;
+
+    &:empty {
+      display: none;
+      & + .ods-notification__content {
+        margin-top: 0;
+      }
+    }
+  }
+
+  @include e(content) {
+    font-size: $--notification-font-size;
+    line-height: 20px;
+    margin: 6px 0 0 0;
+    color: $--notification-color;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  @include e(icon) {
+    height: $--notification-icon-size;
+    width: $--notification-icon-size;
+    font-size: 20px;
+    font-weight: 600;
+    margin-right: 14px;
+  }
+
+  @include e(closeBtn) {
+    position: absolute;
+    top: 18px;
+    right: 15px;
+    cursor: pointer;
+    color: $--notification-close-color;
+    font-size: $--notification-close-font-size;
+    outline: none;
+
+    &:hover {
+      color: $--notification-close-hover-color;
+    }
+
+  }
+
+  .ods-icon-success {
+    color: $--notification-success-color;
+  }
+
+  .ods-icon-error {
+    color: $--notification-danger-color;
+  }
+
+  .ods-icon-info {
+    color: $--notification-info-color;
+  }
+
+  .ods-icon-warning {
+    color: $--notification-warning-color;
+  }
+}
+
+.ods-notification-fade-enter {
+  &.right {
+    right: 0;
+    transform: translateX(100%);
+  }
+
+  &.left {
+    left: 0;
+    transform: translateX(-100%);
+  }
+}
+
+.ods-notification-fade-leave-active {
+  opacity: 0;
+}

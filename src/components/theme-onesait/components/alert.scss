@@ -1,0 +1,114 @@
+@import "../mixins/mixins";
+@import "../common/var";
+
+
+@include b(alert) {
+  width: 100%;
+  padding: 12px 16px;
+  margin: 0;
+  box-sizing: border-box;
+  border-radius: $--alert-border-radius;
+  position: relative;
+  background-color: $--color-white;
+  overflow: hidden;
+  opacity: 1;
+  display: flex;
+  align-items: center;
+  transition: opacity .2s;
+  font-family: $--font-family;
+  line-height: 16px;
+  border: 1px solid;
+
+  @include when(center) {
+    justify-content: center;
+  }
+
+  @include m(success) {
+    background-color: $--alert-success-color;
+    color: $--color-success;
+    border-color: $--color-success;
+    .ods-alert__description {
+      color: $--color-success;
+    }
+  }
+
+  @include m(info) {
+    background-color: $--alert-info-color;
+    color: $--color-info;
+    border-color: $--color-info;
+    .ods-alert__description {
+      color: $--color-info;
+    }
+  }
+
+  @include m(warning) {
+    background-color: $--alert-warning-color;
+    color: $--color-warning;
+    border-color: $--color-warning;
+    .ods-alert__description {
+      color: $--color-warning;
+    }
+  }
+
+  @include m(error) {
+    background-color: $--alert-danger-color;
+    color: $--color-danger;
+    border-color: $--color-danger;
+    .ods-alert__description {
+      color: $--color-danger;
+    }
+  }
+
+  @include e(content) {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-right: 30px;
+  }
+
+  @include e(icon) {
+    font-size: $--alert-icon-size;
+    position: relative;
+    align-self: flex-start;
+    margin-right: 12px;
+
+    @include when(big) {
+      font-size: $--alert-icon-large-size;
+      width: $--alert-icon-large-size;
+    }
+  }
+
+  @include e(title) {
+    font-size: $--alert-title-font-size;
+    line-height: $--alert-title-font-size;
+    flex-basis: 100%;
+
+    @include when(bold) {
+      font-weight: 500;
+    }
+  }
+
+  & .ods-alert__description {
+    font-size: $--alert-description-font-size;
+    margin: 5px 0 0 0;
+  }
+
+  @include e(closebtn) {
+    font-size: $--alert-close-font-size;
+    color: $--color-text-placeholder;
+    opacity: 1;
+    position: absolute;
+    right: 15px;
+    cursor: pointer;
+
+    @include when(customed) {
+      font-style: normal;
+      font-size: $--alert-close-customed-font-size;
+    }
+  }
+}
+
+.ods-alert-fade-enter,
+.ods-alert-fade-leave-active {
+  opacity: 0;
+}

@@ -1,0 +1,41 @@
+@mixin input-inner() {
+  -webkit-appearance: none;
+  background-color: $--color-primary-light-9;
+  background-image: none;
+  border-radius: $--input-border-radius;
+  border: 1px solid transparent;
+  border-bottom-color: $--color-neutral-2;
+  box-sizing: border-box;
+  color: $--input-color;
+  display: inline-block;
+  font-family: $--font-family;
+  font-size: inherit;
+  height: $--input-height;
+  line-height: $--input-height;
+  outline: none;
+  padding: 4px 8px;
+  transition: $--border-transition-base;
+  width: $--input-width;
+  height: $--input-height;
+}
+
+@mixin input-read-only() {
+  background: transparent;
+  border: none;
+  cursor: auto;
+  cursor: initial;
+}
+
+@mixin input-outlined() {
+  .ods-input {
+    input.ods-input__inner {
+      border: 1px solid $--color-neutral-1;
+      border-radius: 16px;
+      padding-left: 16px;
+      background: transparent;
+    }
+    .ods-input__suffix {
+      padding-right: 8px;
+    }
+  }
+}

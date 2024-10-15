@@ -1,0 +1,38 @@
+{
+  "tags": {
+    "allowUnknownTags": true
+  },
+  "recurseDepth": 10,
+  "source": {
+    "exclude": ["node_modules"],
+    "includePattern": "\\.(vue|js)$",
+    "excludePattern": ""
+  },
+  "plugins": [
+    "plugins/markdown",
+    "node_modules/jsdoc-vuejs",
+    "node_modules/jsdoc-vuex-plugin",
+    "node_modules/better-docs/category"
+  ],
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": false,
+    "default": {
+      "staticFiles": {
+        "include": ["./public/jsdocs/"]
+      }
+    },
+    "better-docs": {
+      "name": "Onesait components system",
+      "hideGenerator": false
+    }
+  },
+  "opts": {
+    "encoding": "utf8",
+    "readme": "./readme.md",
+    "destination": "docs/",
+    "recurse": true,
+    "verbose": true,
+    "template": "node_modules/better-docs/"
+  }
+}

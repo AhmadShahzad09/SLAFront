@@ -1,0 +1,250 @@
+@import "../mixins/mixins";
+@import "../mixins/utils";
+@import "../common/var";
+@import "../mixins/edb";
+@import "./select-dropdown";
+@import "./input";
+@import "./tag";
+@import "./option";
+@import "./option-group";
+@import "./scrollbar";
+@import "./input-recycle";
+
+@include b(select) {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  &--micro {
+    width: $--input-size-micro;
+  }
+  &--deci {
+    width: $--input-size-deci;
+  }
+  &--hecto {
+    width: $--input-size-hecto;
+  }
+  &--mega {
+    width: $--input-size-mega;
+  }
+  &--exa {
+    width: $--input-size-exa;
+  }
+
+  & {
+    .ods-input.ods-input--prefix {
+      .ods-input__inner {
+        padding-left: 30px;
+      }
+      .ods-input__prefix {
+        [class^="ods-icon-"],
+        [class*=" ods-icon-"] {
+          height: 100%;
+          width: 25px;
+          text-align: center;
+          transition: all 0.3s;
+          line-height: 32px;
+          font-size: 12px;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  &:hover {
+    .ods-input__inner {
+      border-color: $--select-border-color-hover;
+    }
+  }
+
+  .ods-input__inner {
+    cursor: pointer;
+    &::placeholder {
+      color: $--input-placeholder-color;
+      font-weight: 100;
+      letter-spacing: 0.1px;
+    }
+
+    &:-moz-read-only {
+      @include input-inner;
+      padding-right: 35px;
+    }
+
+    &:read-only {
+      @include input-inner;
+      padding-right: 24px;
+    }
+
+    &:focus {
+      border-color: $--select-input-focus-background;
+    }
+  }
+
+  .ods-input {
+    & .ods-select__caret {
+      color: $--color-black;
+      transition: transform 0.3s;
+      transform: rotateZ(180deg);
+      transform-origin: center;
+      cursor: pointer;
+      font-weight: 200;
+      font-size: 18px;
+
+      @include when(reverse) {
+        transform: rotateZ(0deg);
+        transform-origin: center;
+      }
+
+      @include when(show-close) {
+        font-size: $--select-font-size;
+        text-align: center;
+        transform: rotateZ(180deg);
+        transform-origin: center;
+        border-radius: $--border-radius-circle;
+        color: $--select-input-color;
+        transition: $--color-transition-base;
+        &:hover {
+          color: $--select-close-hover-color;
+        }
+      }
+
+      &.ods-icon-delete {
+        transform: rotateZ(0deg);
+      }
+      &.ods-icon-circle-close {
+        color: $--color-neutral-2;
+        font-size: 12px;
+        cursor: pointer;
+        transition: $--color-transition-base;
+        font-weight: 700;
+        width: 16px;
+      }
+    }
+
+    &.is-disabled {
+      & .ods-input__inner {
+        cursor: not-allowed;
+
+        &:hover {
+          border-color: $--select-disabled-border;
+        }
+      }
+    }
+
+    &.is-focus .ods-input__inner {
+      border-color: $--select-input-focus-background;
+    }
+  }
+
+  > .ods-input {
+    display: block;
+  }
+
+  @include e(input) {
+    border: none;
+    outline: none;
+    padding: 0;
+    margin-left: 15px;
+    color: $--select-multiple-input-color;
+    font-size: $--select-font-size;
+    appearance: none;
+    height: 28px;
+    background-color: transparent;
+    font-family: "Soho", Helvetica, Arial, sans-serif !important;
+    & {
+      padding-right: 24px;
+    }
+    @include when(mini) {
+      height: 14px;
+    }
+  }
+
+  @include e(close) {
+    cursor: pointer;
+    position: absolute;
+    top: 8px;
+    z-index: $--index-top;
+    right: 25px;
+    color: $--select-input-color;
+    line-height: 18px;
+    font-size: $--select-input-font-size;
+    &:hover {
+      color: $--select-close-hover-color;
+    }
+  }
+
+  @include e(tags) {
+    position: absolute;
+    line-height: normal;
+    white-space: normal;
+    z-index: $--index-normal;
+    bottom: 2px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    overflow: hidden;
+    text-align: left;
+
+    & > span {
+      width: 100%;
+    }
+    .ods-tag {
+      max-width: calc(100% - 60px);
+      vertical-align: middle;
+      text-transform: none;
+      font-size: 10px;
+      display: inline-flex;
+      align-items: center;
+      border-radius: 2px;
+
+      .ods-tag__content {
+        max-width: 100%;
+        min-width: 18px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        vertical-align: middle;
+        width: 100%;
+        display: inline-block;
+        vertical-align: bottom;
+
+        &:not(:last-child) {
+          padding-right: 4px;
+        }
+      }
+
+      &--text {
+        display: inline-block;
+      }
+    }
+  }
+  .ods-tag__close {
+    margin-top: -2px;
+  }
+
+  .ods-tag {
+    box-sizing: border-box;
+    border-color: transparent;
+    margin: 2px 0 2px 6px;
+    background-color: $--color-white;
+
+    &__close.ods-icon-close {
+      background-color: transparent;
+      color: #939ba0;
+
+      &:hover {
+        background-color: transparent;
+      }
+
+      &::before {
+        display: block;
+        transform: translate(0, 0.5px);
+      }
+    }
+  }
+  @include m(outlined) {
+    @include input-outlined;
+    .ods-input input.ods-input__inner {
+      padding-right: 36px;
+    }
+  }
+}

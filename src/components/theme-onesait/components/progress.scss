@@ -1,0 +1,134 @@
+@import "../mixins/mixins";
+@import "../mixins/utils";
+@import "../common/var";
+
+@include b(progress) {
+  position: relative;
+  line-height: 1;
+
+  @include e(text) {
+    font-size: $--font-size-base;
+    color: $--color-text-regular;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+    line-height: 1;
+
+    i,
+    [class*="ods-icon-"],
+    [class*=" ods-icon-"] {
+      vertical-align: middle;
+      display: block;
+      font-size: $--icon-size;
+    }
+  }
+
+  @include m(circle) {
+    display: inline-block;
+
+    .ods-progress__text {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      margin: 0;
+      transform: translate(0, -50%);
+
+      i,
+      [class*="ods-icon-"],
+      [class*=" ods-icon-"] {
+        vertical-align: middle;
+        display: inline-block;
+      }
+    }
+  }
+
+  @include m(without-text) {
+    .ods-progress__text {
+      display: none;
+    }
+
+    .ods-progress-bar {
+      padding-right: 0;
+      margin-right: 0;
+      display: block;
+    }
+  }
+
+  @include m(text-inside) {
+    .ods-progress-bar {
+      padding-right: 0;
+      margin-right: 0;
+    }
+  }
+
+  @include when(success) {
+    .ods-progress-bar__inner {
+      background-color: $--color-success;
+    }
+
+    .ods-progress__text {
+      color: $--color-success;
+    }
+  }
+
+  @include when(exception) {
+    .ods-progress-bar__inner {
+      background-color: $--color-warning;
+    }
+
+    .ods-progress__text {
+      color: $--color-warning;
+    }
+  }
+}
+
+@include b(progress-bar) {
+  padding-right: 60px;
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+  margin-right: -55px;
+  box-sizing: border-box;
+
+  @include e(outer) {
+    height: 8px;
+    border-radius: 100px;
+    background-color: $--color-neutral-3;
+    overflow: hidden;
+    position: relative;
+    vertical-align: middle;
+  }
+  @include e(inner) {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background-color: $--color-secondary;
+    text-align: right;
+    border-radius: 100px;
+    line-height: 1;
+    white-space: nowrap;
+
+    @include utils-vertical-center;
+  }
+
+  @include e(innerText) {
+    display: inline-block;
+    vertical-align: middle;
+    color: $--color-white;
+    font-size: 12px;
+    margin: -4px 5px 0;
+  }
+}
+
+@keyframes progress {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 32px 0;
+  }
+}

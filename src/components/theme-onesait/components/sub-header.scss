@@ -1,0 +1,42 @@
+@import "../mixins/mixins";
+@import "../common/var";
+
+@include b(sub-header) {
+  min-height: $--subheader-regular-height;
+  position: relative;
+  z-index: 1002;
+  box-shadow: $--box-shadow-structure;
+  border-top: 1px solid $--color-neutral-5;
+  background: $--color-white;
+  border-left: 1px solid $--color-neutral-5;
+  overflow: auto;
+  box-sizing: border-box;
+  padding: 16px;
+  margin-bottom: $--main-content-padding;
+  @include m(medium) {
+    min-height: $--subheader-medium-height;
+  }
+  @include m(large) {
+    min-height: $--subheader-large-height;
+  }
+  @include m(is-absolute) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    width: 100%;
+  }
+  @include m(stretch) {
+    margin: -#{$--main-content-padding} -#{$--main-content-padding} #{$--main-content-padding} -#{$--main-content-padding};
+  }
+}
+
+.has-sub-header {
+  padding-top: $--subheader-regular-height;
+  @include m(medium) {
+    padding-top: $--subheader-medium-height;
+  }
+  @include m(large) {
+    padding-top: $--subheader-large-height;
+  }
+}

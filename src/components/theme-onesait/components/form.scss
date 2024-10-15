@@ -1,0 +1,182 @@
+@import "../mixins/mixins";
+@import "../mixins/utils";
+@import "../common/var";
+
+@include b(form) {
+  @include m(label-left) {
+    & .ods-form-item__label {
+      text-align: left;
+    }
+  }
+  @include m(label-top) {
+    & .ods-form-item__label {
+      float: none;
+      display: inline-block;
+      text-align: left;
+      padding: 0;
+      line-height: 1.2;
+    }
+  }
+  @include m(inline) {
+    & .ods-form-item {
+      display: inline-block;
+      margin-right: 32px;
+      vertical-align: top;
+    }
+    & .ods-form-item__label {
+      float: none;
+      display: inline-block;
+      line-height: 32px;
+    }
+    & .ods-form-item__content {
+      display: inline-block;
+      vertical-align: top;
+    }
+    &.ods-form--label-top .ods-form-item__content {
+      display: block;
+    }
+  }
+}
+@include b(form-item) {
+  margin-bottom: 24px;
+  @include utils-clearfix;
+
+  & .ods-form-item {
+    margin-bottom: 0;
+  }
+
+  & .ods-input__validateIcon {
+    display: none !important;
+  }
+
+  @include m(medium) {
+    .ods-form-item__label {
+      line-height: 36px;
+    }
+    .ods-form-item__content {
+      line-height: 36px;
+    }
+  }
+  @include m(small) {
+    .ods-form-item__label {
+      line-height: 32px;
+    }
+    .ods-form-item__content {
+      line-height: 32px;
+    }
+    &.ods-form-item {
+      margin-bottom: 18px;
+    }
+    .ods-form-item__error {
+      padding-top: 2px;
+    }
+  }
+  @include m(mini) {
+    .ods-form-item__label {
+      line-height: 28px;
+    }
+    .ods-form-item__content {
+      line-height: 28px;
+    }
+    &.ods-form-item {
+      margin-bottom: 18px;
+    }
+    .ods-form-item__error {
+      padding-top: 1px;
+    }
+  }
+
+  @include e(label) {
+    text-align: right;
+    vertical-align: middle;
+    font-size: 9px;
+    font-weight: 500;
+    color: $--color-label;
+    line-height: 0;
+    padding: 0 12px 0 0;
+    box-sizing: border-box;
+    text-transform: uppercase;
+    display: block;
+    letter-spacing: 0.5px;
+    float: left;
+    line-height: 16px;
+    margin-bottom: 4px;
+  }
+  @include e(content) {
+    position: relative;
+    @include utils-clearfix;
+
+    .ods-input-group {
+      vertical-align: middle;
+    }
+  }
+  @include e(error) {
+    color: $--color-danger;
+    font-size: 12px;
+    line-height: 1;
+    padding-top: 4px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+
+    @include m(inline) {
+      position: relative;
+      top: auto;
+      left: auto;
+      display: inline-block;
+      margin-left: 10px;
+    }
+  }
+
+  @include when(required) {
+    @include pseudo("not(.is-no-asterisk)") {
+      & > .ods-form-item__label:after {
+        content: "*";
+        // color: $--color-danger;
+        margin-left: 2px;
+      }
+    }
+  }
+
+  @include when(error) {
+    & .ods-input__inner,
+    & .ods-textarea__inner {
+      &,
+      &:focus {
+        border-color: $--color-danger;
+      }
+    }
+    & .ods-input-group__append,
+    & .ods-input-group__prepend {
+      & .ods-input__inner {
+        border-color: transparent;
+      }
+    }
+    .ods-input__validateIcon {
+      color: $--color-danger;
+    }
+  }
+  @include when(success) {
+    & .ods-input__inner,
+    & .ods-textarea__inner {
+      &,
+      &:focus {
+        border-color: $--color-success;
+      }
+    }
+    & .ods-input-group__append,
+    & .ods-input-group__prepend {
+      & .ods-input__inner {
+        border-color: transparent;
+      }
+    }
+    .ods-input__validateIcon {
+      color: $--color-success;
+    }
+  }
+  @include m(feedback) {
+    .ods-input__validateIcon {
+      display: inline-block;
+    }
+  }
+}

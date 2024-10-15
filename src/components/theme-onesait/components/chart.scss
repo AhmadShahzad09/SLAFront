@@ -1,0 +1,365 @@
+@charset "UTF-8";
+@import "../common/var";
+@import '../mixins/edb';
+@import './chartist-settings';
+@import "./chartist";
+
+.ods-chart {
+  &.fullwidth {
+    width: 100%;
+  }
+
+  &.long-labels {
+    padding-left: 30px;
+  }
+
+  &.overlap {
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    right: 0;
+    top: 0;
+    pointer-events: none;
+
+    .ct-grid.ct-vertical {
+      display: none;
+    }
+
+    .ct-point,
+    .ct-bar,
+    .ct-slice-donut {
+      pointer-events: all;
+    }
+
+    .ct-series-a .ct-point,
+    .ct-series-a .ct-line,
+    .ct-series-a .ct-bar,
+    .ct-series-a .ct-slice-donut {
+      stroke: $--color-primary !important;
+    }
+  }
+
+  &[legend] {
+    + .overlap {
+      top: 28px;
+    }
+  }
+}
+
+.ct-chart {
+  position: relative;
+  box-sizing: border-box;
+
+  // horizontal bars styles
+  &.ct-horizontal-bars {
+    .ct-bar {
+      stroke-width: 10px;
+    }
+
+    .ct-vertical:not(.ct-label):not(.ct-bar):not(:first-child) {
+      opacity: 0;
+
+      + .ct-horizontal {
+        opacity: 1;
+        stroke-dasharray: 0;
+      }
+    }
+
+    .ct-tooltip-average {
+      transform: translate3d(calc(-50% - 0.5px), calc(-50% - 0.5px), 0);
+    }
+
+    .ct-tooltip {
+      transform: translate3d(15px, -50%, 0) translateY(0) translateX(0);
+
+      &.tooltip-show {
+        opacity: 1;
+        transform: translate3d(20px, -50%, 0) translateY(0) translateX(0);
+      }
+
+      &::after {
+        top: 50%;
+        right: 100%;
+        left: auto;
+        margin-top: -6px;
+        margin-left: 0;
+        border-top: 6px solid transparent;
+        border-right: 6px solid $color-white;
+        border-left: 0;
+        border-bottom: 4px solid transparent;
+        width: 0;
+        height: 0;
+      }
+    }
+  }
+
+  // line chart styles
+  .ct-chart-line {
+    .ct-label.ct-horizontal.ct-end {
+      justify-content: center;
+      text-align: center;
+      text-anchor: middle;
+      transform: translateX(-50%);
+    }
+  }
+
+  // gauge chart styles
+  .ct-gaugeRail {
+    stroke: $color-lightGray-shape03;
+    fill: none;
+  }
+
+  .ct-gaugeValorContainer {
+    @extend %font-kpi-number;
+    font-weight: 500;
+    position: absolute;
+    left: 50%;
+    top: 47%;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    backface-visibility: hidden;
+
+    .symbol,
+    .smallNumber {
+      @extend %font-kpi-decimals;
+      margin-left: 3px;
+    }
+  }
+
+  // pie chart styles
+  .ct-slice-donut {
+    cursor: pointer;
+  }
+
+  // common styles
+  .ct-chart-bar {
+    overflow: visible;
+  }
+
+  .ct-horizontal:not(.ct-label) {
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+    stroke-dasharray: 4;
+    stroke-width: 1px;
+
+    &.active {
+      opacity: 1;
+    }
+  }
+
+  .ct-bar {
+    stroke-width: 16px;
+    cursor: pointer;
+  }
+
+  .ct-slice-pie {
+    cursor: pointer;
+  }
+
+  .ct-grid.ct-vertical {
+    stroke-dasharray: 0;
+    stroke: $color-lightGray-shape02;
+  }
+
+  .ct-label {
+    @extend %chart-label;
+    color: $color-darkGray-shape03;
+
+    &.ct-vertical.ct-start {
+      padding-left: 8px;
+    }
+  }
+
+  .ct-series {
+    .ct-line {
+      pointer-events: none;
+    }
+  }
+
+  .ct-point {
+    fill: $color-lightGray;
+    opacity: 1;
+    transition: opacity 0.3s ease-out, r 0.3s ease-out;
+    cursor: pointer;
+  }
+
+  .ct-average-value {
+    stroke-width: 1px;
+    stroke: $color-green;
+    stroke-dasharray: 4;
+  }
+
+  .ct-average-value-area {
+    stroke-width: 8px;
+    stroke: transparent;
+    cursor: pointer;
+  }
+
+  .ct-tooltip-average {
+    @extend %chart-label;
+    position: absolute;
+    opacity: 0;
+    padding: 6px 15px 4px 15px;
+    right: 5%;
+    color: $color-white;
+    text-transform: none;
+    background-color: $color-green;
+    border-radius: 6px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    pointer-events: none;
+    transform: translate3d(0, calc(-50% - 0.5px), 0);
+    text-align: center;
+    transition: opacity 0.35s $animation-swiftOut;
+    backface-visibility: hidden;
+
+    &.tooltip-show {
+      opacity: 1;
+    }
+  }
+
+  .ct-tooltip {
+    position: absolute;
+    opacity: 0;
+    padding: 15px 28px;
+    background-color: $color-white;
+    border-radius: 6px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    pointer-events: none;
+    transform: translate3d(-50%, -100%, 0) translateY(-15px) translateX(1px);
+    text-align: center;
+    transition: transform 0.5s $animation-swiftOut 0.05s, opacity 0.4s $animation-swiftOut 0.05s;
+    z-index: 3000;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -6px;
+      width: 0;
+      height: 0;
+      border-top: 4px solid $color-white;
+      border-right: 6px solid transparent;
+      border-left: 6px solid transparent;
+    }
+
+    &.tooltip-show {
+      opacity: 1;
+      transform: translate3d(-50%, -100%, 0) translateY(-20px) translateX(1px);
+    }
+
+    .ct-tooltip_data {
+      @extend %chart-tooltip-bold;
+      color: $color-darkGray;
+
+      + * {
+        margin-top: 4px;
+      }
+    }
+
+    .ct-tooltip_description {
+      @extend %chart-tooltip-regular;
+      color: $color-darkGray-shape03;
+    }
+  }
+
+  // Themimy
+
+  .ct-average-value {
+    @include themify($themes) {
+      stroke: color('primary');
+    }
+  }
+
+  .ct-tooltip-average {
+    @include themify($themes) {
+      background-color: color('primary');
+    }
+  }
+
+  .ct-series-a {
+    .ct-bar,
+    .ct-line,
+    .ct-slice-donut,
+    .ct-point {
+      @include themify($themes) {
+        stroke: $--color-secondary;
+      }
+    }
+
+    .ct-slice-pie {
+      @include themify($themes) {
+        fill: $--color-secondary;
+      }
+    }
+  }
+
+  + .ods_subtitle {
+    margin-top: 15px;
+  }
+}
+
+.ods_title {
+  @extend %font-component-title;
+  color: $color-darkGray-shape02;
+
+  + * {
+    margin-top: 20px;
+  }
+}
+
+.ods_subtitle {
+  @extend %title04;
+  color: $color-darkGray-shape02;
+  text-align: center;
+}
+
+.chart_legend {
+  position: relative;
+  font-size: 0;
+  margin-left: 8px;
+
+  > li {
+    @extend %font-accordion-select-items;
+    display: inline-block;
+    vertical-align: middle;
+    color: $color-darkGray-shape04;
+
+    &::before {
+      content: '';
+      display: inline-block;
+      vertical-align: middle;
+      width: 10px;
+      height: 8px;
+      margin-right: 10px;
+    }
+
+    @if $ct-include-colored-series {
+      @for $i from 0 to length($ct-series-names) {
+        &:nth-child(#{$i + 1}) {
+          &::before {
+            background-color: nth($ct-series-colors, $i + 1);
+          }
+        }
+      }
+    }
+
+    &:nth-child(1) {
+      &::before {
+        background-color: $color-green;
+
+        @include themify($themes) {
+          background-color: color('primary');
+        }
+      }
+    }
+
+    + li {
+      margin-left: 20px;
+    }
+  }
+
+  + * {
+    margin-top: 10px;
+  }
+}

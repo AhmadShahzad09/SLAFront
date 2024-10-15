@@ -1,0 +1,14 @@
+version: "3.6"
+services:
+  sla_web:
+    container_name: sla_web_container
+    image: sla_web_image
+    environment:
+      SLA_WEB_PORT: ${SLA_WEB_PORT:-8000}
+    build:
+      context: ./
+      dockerfile: DockerfileProd
+    ports:
+      - ${SLA_WEB_PORT:-8000}:80
+    volumes:
+      - ./dist:/usr/share/nginx/html

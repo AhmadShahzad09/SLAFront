@@ -1,0 +1,90 @@
+@import "../common/var";
+.ods-actions-menu__button {
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  width: 48px;
+  height: 48px;
+  justify-content: center;
+  align-items: center;
+  transition: all .15s ease-in;
+  &:focus {
+    outline: none;
+    background-color: $--color-primary-light-8;
+  }
+  &:not(.ods-actions-menu__button--active):hover,
+  &:not(.ods-actions-menu__button--active):hover {
+    background-color: $--color-primary-light-8;
+  }
+  &--active:not(.ods-actions-menu__button--text) {
+    color: $--color-white;
+    background-color: $--color-primary;
+  }
+  &--text {
+    width: auto;
+    font-size: 12px;
+    padding: 0 12px;
+    &:hover, &.ods-actions-menu__button--active {
+      background-color: $--color-primary-light-8;
+      color: initial;
+    }
+    &:after {
+      content: 'b';
+      font-family: onesait-icons!important;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      margin-left: 4px;
+    }
+    &.ods-actions-menu__button--active {
+      &:after {
+        content: 'C';
+      }
+    }
+  }
+  &--img {
+    padding: 4px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    &.ods-actions-menu__button--active {
+      background-color: $--color-primary-light-8;
+    }
+  }
+}
+.ods-actions-menu {
+  min-width: 224px;
+  border-radius: 0;
+  padding: 0;
+  &.ods-popper[x-placement^=bottom] {
+    margin-top: 4px;
+  }
+  .ods-actions-menu__scroll-area {
+    max-height: calc(100vh - 130px);
+    padding: 24px 16px;
+  }
+  &__ul {
+    li {
+      a {
+        display: block;
+        width: 100%;
+        padding: 12px 8px 8px;
+        min-height: 40px;
+        box-sizing: border-box;
+        font-size: 12px;
+        color: initial;
+        &:hover {
+          background: $--color-primary-light-8;
+        }
+      }
+      i, [class*="ods-icon-"], [class*=" ods-icon-"] {
+        font-size: 20px;
+        vertical-align: top;
+        margin-right: 8px;
+      }
+    }
+    li.ods-actions-menu__separator {
+      border-top: 1px solid $--color-neutral-3;
+      margin: 16px 0;
+    }
+  }
+}

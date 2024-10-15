@@ -1,0 +1,38 @@
+@import "../mixins/mixins";
+@import "../common/var";
+
+@include b(module) {
+  border-radius: $--module-border-radius;
+  // border: 1px solid $--module-border-color;
+  background-color: $--color-white;
+  overflow: hidden;
+  color: $--color-text-primary;
+  transition: 0.3s;
+  font-family: $--font-family;
+
+  @include when(always-shadow) {
+    box-shadow: $--box-shadow-light;
+  }
+
+  @include when(hover-shadow) {
+    &:hover,
+    &:focus {
+      box-shadow: $--box-shadow-light;
+    }
+  }
+
+  @include e(header) {
+    padding: #{$--module-padding $--module-padding};
+    border-bottom: 0 solid $--module-border-color;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  @include e(body) {
+    padding: $--module-padding;
+    padding-top: 0;
+    font-size: 12px;
+    line-height: 2;
+  }
+}

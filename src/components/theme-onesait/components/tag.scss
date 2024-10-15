@@ -1,0 +1,209 @@
+@import "../mixins/mixins";
+@import "../common/var";
+@import "../mixins/edb";
+
+@include b(tag) {
+  background-color: $--tag-fill;
+  
+  padding: $--tag-padding;
+  height: 24px;
+  line-height: 14px;
+  font-size: $--tag-font-size;
+  color: $--tag-color;
+  border-radius: $--tag-border-radius;
+  box-sizing: border-box;
+  white-space: nowrap;
+  text-transform: uppercase;
+  font-family: $--font-family;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  border: 1px solid;
+  display: inline-flex;
+  align-items: center;
+
+  @include m(is-closable) {
+    padding: 4px 8px 4px 16px ;
+  }
+
+
+  .ods-icon-close {
+    border-radius: 50%;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    font-size: 11px;
+    line-height: 1;
+    color: $--color-white;
+    top: 1px;
+
+    &::before {
+      display: block;
+    }
+
+    &:hover {
+      cursor: pointer;
+      color: $--color-white;
+    }
+  }
+
+  
+
+  @include e(content) {
+    padding-right: 8px;
+    &:only-child {
+      padding: 0;
+    }
+  }
+  
+
+  @include m(info) {
+    background-color: $--tag-info-fill;
+    border-color: $--tag-info-border;
+    color: $--tag-info-color;
+    border: 1px solid $--tag-info-border;
+
+    @include when(hit) {
+      border-color: $--tag-info-color;
+    }
+
+    .ods-tag__close {
+      color: $--tag-info-color;
+    }
+
+    .ods-tag__close:hover {
+      /* background-color: $--tag-info-color; */
+      color: $--color-black;
+    }
+  }
+
+  @include m(success) {
+    background-color: $--tag-success-fill;
+    border-color: $--tag-success-border;
+    color: $--tag-success-color;
+    @include when(hit) {
+      border-color: $--tag-success-color;
+    }
+
+    .ods-tag__close:hover {
+      color: $--color-white;
+    }
+  }
+
+  @include m(warning) {
+    background-color: $--tag-warning-fill;
+    border-color: $--tag-warning-border;
+    color: $--tag-warning-color;
+
+    @include when(hit) {
+      border-color: $--tag-warning-color;
+    }
+
+    .ods-tag__close, .ods-tag__close:hover {
+      color: $--tag-warning-color;
+    }
+  }
+
+  @include m(danger) {
+    background-color: $--tag-danger-fill;
+    border-color: $--tag-danger-border;
+    color: $--tag-danger-color;
+
+    @include when(hit) {
+      border-color: $--tag-danger-color;
+    }
+
+    .ods-tag__close:hover {
+      color: $--color-white;
+    }
+  }
+
+  @include m(primary) {
+    background-color: $--color-primary;
+    border-color: $--color-primary;
+    color: $--color-white;
+
+    @include when(hit) {
+      border-color: $--color-primary;
+    }
+
+    .ods-tag__close {
+      color: $--color-white;
+    }
+
+    @include when(negative) {
+      border-color: $--color-white;
+      background-color: $--color-white;
+      color: $--color-primary;
+      .ods-tag__close {
+        color: $--color-primary;
+      }
+    }
+  }
+
+  @include m(secondary) {
+    background-color: #E4EEF2;
+    border-color: transparent;
+    color: $--color-primary;
+
+    @include when(hit) {
+      border-color: $--tag-success-color;
+    }
+
+    .ods-tag__close {
+      color: $--color-primary;
+    }
+
+    @include when(negative) {
+      border-color: $--color-white;
+      background-color: transparent;
+      color: $--color-white;
+      .ods-tag__close {
+        color: $--color-white;
+      }
+    }
+  }
+  @include m(normal) {
+    background-color: transparent;
+    color: $--edb-color-grey-01;
+    border: 1px solid $--table-border-color;
+
+    @include when(hit) {
+      border-color: $--tag-success-color;
+    }
+
+    .ods-tag__close {
+      color: $--edb-color-grey-01;
+    }
+
+    .ods-tag__close:hover {
+      /* background-color: $--tag-success-color; */
+      color: $--color-white;
+    }
+  }
+
+  @include m(medium) {
+    font-size: 12px;
+  }
+
+  @include m(small) {
+    height: 24px;
+    padding: 0 8px;
+    line-height: 22px;
+
+    .ods-icon-close {
+      transform: scale(.8);
+      background-color: transparent;
+    }
+  }
+
+  @include m(mini) {
+    height: 20px;
+    padding: 0 5px;
+    line-height: 19px;
+
+    .ods-icon-close {
+      margin-left: -3px;
+      transform: scale(.7);
+    }
+  }
+}
